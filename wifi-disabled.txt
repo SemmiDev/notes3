@@ -1,0 +1,9 @@
+1. sudo lshw -class network
+   copy the product key = QCA9565
+2. cd /etc/pm/config.d 
+3. create config, touch config
+4. isikan ini 
+   SUSPEND MODULES="QCA9565"
+
+echo "options QCA9565 fwlps=N" | tee /etc/modprobe.d/QCA9565.conf
+

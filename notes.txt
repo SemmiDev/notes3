@@ -1,0 +1,61 @@
+sudo snap install postman
+
+sudo systemctl stop postgresql
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+sudo systemctl disable postgresql = agar tak auto start
+sudo systemctl enable postgresql = agar auto start
+psql --version
+sudo systemctl status postgresql
+sudo su postgres
+psql
+\conninfo
+
+
+sudo netstat -lpn | grep :8080
+kill  29867    
+
+
+sudo systemctl start mongod
+sudo systemctl status mongod
+sudo systemctl stop mongod
+sudo systemctl restart mongod
+mongo = untu start mongodb
+
+pidof wps
+kill pid
+
+
+wine ~/.wine/drive_c/Program\ Files/CPU-OS\ Simulator\CPUSimulator.exe
+
+
+
+
+sudo systemctl status redis 
+sudo systemctl start redis-server 
+sudo systemctl stop redis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
