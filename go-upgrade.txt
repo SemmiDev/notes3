@@ -1,0 +1,11 @@
+UNINSTALL EXISITING VERSION:
+sudo rm -rf /usr/local/go
+
+INSTALL NEW VERSION:
+https://golang.org/dl/
+
+EXTRACT THE NEW VERSION:
+sudo tar -C /usr/local -xzf /home/sam/Downloads/go1.16.2.linux-amd64.tar.gz
+
+Make sure that your PATH contains /usr/local/go/bin
+echo $PATH | grep "/usr/local/go/bin"
