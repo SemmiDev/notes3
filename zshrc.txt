@@ -9,6 +9,8 @@ export ZSH="/home/sam/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="powerlevel9k/powerlevel9k"
+# POWERLEVEL9K_MODE="nerdfont-complete"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +72,12 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	git
+	dnf
+	zsh-syntax-highlighting
+	zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -104,9 +111,11 @@ source $ZSH/oh-my-zsh.sh
 # PATH TO GO
 export GOPATH=/home/sam/Documents/Development/GolangProject
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export FORMAT="ID\t{{.ID}}\nName\t{{.Names}}\nIMAGE\t{{.Image}}\nPORTS\t{{.Ports}}\nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
+
 
 # PATH TO OPEN JDK 15
-export PATH="/opt/java/jdk-15.0.2/bin:$PATH"
+export PATH="/opt/java/jdk-16/bin:$PATH"
 # export PATH="/opt/java/jdk1.8.0_281/bin:$PATH"
 
 # PATH TO XAMPP
@@ -126,6 +135,9 @@ alias python='/usr/bin/python3.8'
 export NODEJS_HOME=/opt/node-v14.16.0-linux-x64/bin
 export PATH=$NODEJS_HOME:$PATH
 
+# Docker
+# alias DPS="docker ps --format=$FORMAT"
+
 # PATH TO LARAVEL
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
@@ -138,6 +150,7 @@ alias rundata="/opt/jetbrains/DataGrip-2020.3.1/bin/datagrip.sh"
 alias runws="/opt/jetbrains/WebStorm/WebStorm-203.7148.54/bin/webstorm.sh"
 alias runps="/opt/jetbrains/PhpStorm/PhpStorm-203.6682.180/bin/phpstorm.sh"
 
+alias p="python3.8"
 alias runapache="sudo /opt/lampp/lampp start apache"
 alias stopapache="sudo /opt/lampp/lampp stop apache"
 alias runmysql="sudo /opt/lampp/lampp start mysql"
@@ -172,3 +185,39 @@ alias cd="cd"
 alias time="date"
 alias mem="free"
 
+alias rundocker="sudo systemctl start docker"
+alias statusdocker="sudo systemctl status docker"
+alias stopdocker="sudo systemctl stop docker"
+alias stopdocker2="sudo dockerd -H gridsim1103:2376"
+
+# for mongo
+alias runmongo="sudo systemctl start mongod"
+alias statusmongo="sudo systemctl status mongod"
+alias stopmongo="sudo systemctl stop mongod"
+alias restartmongo="sudo systemctl restart mongod"
+
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-rust \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-bin-gem-node
+
+### End of Zinit's installer chunk
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
