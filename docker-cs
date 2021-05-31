@@ -1,0 +1,119 @@
+docker ps = see all container running
+docker ps -a = see all container running and not
+docker pull nginx = pull an image from docker hub (latest version)
+docker pull nginx:specific_version = pull an image from docker hub with specific version
+docker images = see all images
+docker container ls = see all container running
+docker container ls -a = see all container running and not
+docker run --name -d app1.0 -p 8080:80 -p 8081:80 nginx:latest = create a container
+docker stop container_id = stop a container
+docker stop container_name = stop a container also
+docker start container_id = start a container
+docker start container_name = start a container also 
+docker ps --help = option of container command
+docker rm container_id = remove a container (not running y)
+docker rm -f container_id = remove a container (include running container)
+docker ps -aq = see all container_id
+docker rm $(docker ps -aq) = remove all container
+docker rm -f $(docker ps -aq) = remove all container (include running container)
+
+docker ps --format="ID\t{{.ID}}" // and so on
+export FORMAT="ID\t{{.ID}}"
+docker ps --format=$FORMAT
+
+== VOLUMES
+cd Desktop  && mkdir website && cd website && touch index.html && nano index.html
+docker run --name website1 -v $(pwd):/usr/share/nginx/html:ro -d -p 8080:80 -p 8081:80 nginx:latest
+docker exec -it website1 bash
+	ls -al
+	cd /usr/share/nginx/html
+	ls -al
+	touch about.html
+	docker ps
+	docker rm -f website1
+docker run --name website1 -v $(pwd):/usr/share/nginx/html -d -p 8080:80 -p 8081:80 nginx:latest
+docker exec -it website1 bash
+	ls -al
+	cd /usr/share/nginx/html
+	ls -al
+	touch about.html (automtically sync with local hehehe)
+	docker ps
+	docker rm -f website1
+
+docker run --name website1-copy --volumes-from website -d -p 8082:80 nginx:latest
+
+
+== Dockerfile
+cd into desktop, project tadi
+bikin file Dockerfile
+
+FROM nginx:latest
+ADD . /usr/share/nginx.html
+
+ 
+
+docker build -t website:latest .
+docker run --name website -p 8080:80 -d website:latest
+
+
+
+
+
+// node and express js
+mkkdir user-service-api && cd user-service-api
+npm init
+SEARCH HELLO WORLD IN GOOGLE WITH NODE JS AND EXPRESS HEHEH
+
+create a Dokerfile
+
+FROM node:latest
+WORKDIR /app
+ADD . .
+RUN npm install
+CMD node index.js
+
+docker build  -t user-service-api:latest .
+docker run --name user-service -d -p 3000:3000 user-service-api:latest
+
+
+BACK TO FOLDER
+and create .dockerignore
+and add inside that
+	node_modules
+	Dockerfile
+	.gits
+	*.gupl.js
+
+docker build  -t user-service-api:latest .
+
+
+
+BACK TO FOLDER
+nom i -S react webpack gulp grunt
+docker build  -t user-service-api:latest .
+
+into Dockerfile
+
+FROM node:latest
+WORKDIR /app
+ADD package*.json ./
+RUN npm install
+ADD . .
+CMD node index.js
+
+
+
+
+
+docker node:lts-alpine
+docker image ls
+
+
+FROM node:alpine
+WORKDIR /app
+ADD package*.json ./
+RUN npm install
+ADD . .
+CMD node index.js
+
+docker build  -t user-service-api:latest .
