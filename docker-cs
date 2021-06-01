@@ -117,3 +117,51 @@ ADD . .
 CMD node index.js
 
 docker build  -t user-service-api:latest .
+
+
+== TAG AND VERSION
+open Dockerfile for static web
+	FROM nginx:alpine:1.17.2-alpine
+	ADD . /usr/share/nginx/html
+
+open Dockerfile for UserService app with nodejs
+	FROM node:10.16.1-alpine
+	WORKDIR /app
+	ADD package*.json ./
+	RUN npm install
+	ADD . .
+	CMD node index.js
+
+docker build -t website:latest .
+cd user-service-api
+docker build -t user-service-api:latest .
+
+
+TAG
+
+docker build -t sammidev-website:latest .
+docker image ls
+docker tag sammidev-website:latest sammidev-website:1 -> nanti dia punya tag 1
+docker tag sammidev-website:latest sammidev-website:1 -> nanti dia punya tag 2
+docker image ls
+
+docker run --name sammidev-website -p 8080:80 -d website:latest
+docker run --name sammidev-website1 -p 8080:80 -d website:1
+docker run --name sammidev-website2 -p 8080:80 -d website:2
+
+
+DOCKER REGISTRY
+
+
+docker tag sammidev-website1 sammidev/website:1
+docker tag sammidev-website2 sammidev/website:2
+docker login
+docker push sammidev/website:1
+docker push sammidev/website:2
+
+
+untagged
+docker rmi sammidev/website:1
+docker rmi sammidev/website:1
+docker inspect containerID
+docker exec -it containerID /bin/sh
